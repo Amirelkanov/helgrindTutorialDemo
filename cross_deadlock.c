@@ -4,6 +4,7 @@
 static pthread_mutex_t m1 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t m2 = PTHREAD_MUTEX_INITIALIZER;
 
+// Для разрешения дедлока зададим строгий порядок захвата (пусть m1, m2)
 static void *t1(void *v)
 {
   pthread_mutex_lock(&m1);

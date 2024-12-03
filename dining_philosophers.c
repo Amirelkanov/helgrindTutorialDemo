@@ -16,14 +16,25 @@ void *dine(void *arg)
    int i;
    long left = (long)arg;
    long right = (left + 1) % 5;
+
+   /*
+    Чтобы избежать дедлока, мы можем ввести строгий порядок захвата mutex'ов.
+    Один из популярных подходов — это захват вилок в фиксированном порядке:
+    каждая вилка имеет уникальный номер, и философы захватывают вилки по возрастанию номера:
+         long first = left < right ? left : right;
+         long second = left < right ? right : left;
+   */
+
+   long first = left;
+   long second = right;
    for (i = 0; i < 1000 /*arbitrary*/; i++)
    {
       /* thinking */
-      pthread_mutex_lock(&table[left].fork_m);
-      pthread_mutex_lock(&table[right].fork_m);
+      pthread_mutex_lock(&table[first].fork_m);
+      pthread_mutex_lock(&table[second].fork_m);
       /* eating */
-      pthread_mutex_unlock(&table[left].fork_m);
-      pthread_mutex_unlock(&table[right].fork_m);
+      pthread_mutex_unlock(&table[first].fork_m);
+      pthread_mutex_unlock(&table[second].fork_m);
    }
    return NULL;
 }
