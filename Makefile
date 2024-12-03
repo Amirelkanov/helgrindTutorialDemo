@@ -11,6 +11,12 @@ helgrind_default_check:
 	valgrind --tool=helgrind $(BUILD_PATH)$(PROGRAM_NAME) 
 	rm -f $(BUILD_PATH)$(PROGRAM_NAME)
 
-#  Address 0x10c014 is 0 bytes inside data symbol "var"
-# Location 0x10c014 is 0 bytes inside global var "var" declared at simple_data_race.c:3
-# valgrind --tool=helgrind --vgdb=yes --vgdb-error=0 $(BUILD_PATH)$(PROGRAM_NAME)
+# Для отладки с помощью gdb
+
+# 1 консоль:
+# make make_program PROGRAM_NAME=<executable>
+# valgrind --tool=helgrind --vgdb=yes --vgdb-error=0 <executable>
+
+# 2 консоль:
+# gdb ./<executable>
+# target remote | blah blah blah
