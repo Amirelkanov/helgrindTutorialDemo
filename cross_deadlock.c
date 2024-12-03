@@ -28,10 +28,6 @@ int main()
 {
   pthread_t a, b;
 
-  /* prevent spurious messages from the dynamic linker */
-  pthread_mutex_lock(&m1);
-  pthread_mutex_unlock(&m1);
-
   pthread_create(&a, NULL, t1, NULL);
   pthread_create(&b, NULL, t2, NULL);
 
