@@ -11,6 +11,12 @@ helgrind_default_check:
 	valgrind --tool=helgrind $(BUILD_PATH)$(PROGRAM_NAME) 
 	rm -f $(BUILD_PATH)$(PROGRAM_NAME)
 
+helgrind_verbose_check: 
+	$(MAKE) make_program PROGRAM_NAME=$(PROGRAM_NAME) 
+	valgrind --tool=helgrind --read-var-info=yes $(BUILD_PATH)$(PROGRAM_NAME) 
+	rm -f $(BUILD_PATH)$(PROGRAM_NAME)
+
+
 # Для отладки с помощью gdb
 
 # 1 консоль:
