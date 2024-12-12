@@ -11,7 +11,6 @@ void *child_fn(void *arg)
    return NULL;
 }
 
-
 int main(void)
 {
    pthread_t child;
@@ -32,6 +31,8 @@ int main(void)
    /* child runs and attempts to unlock our lock.  Error
       is reported in child_fn. */
    pthread_join(child, NULL);
-   
+
+   // Ending without unlocking the lock
+   // pthread_mutex_unlock(&mx2);
    return 0;
 }
